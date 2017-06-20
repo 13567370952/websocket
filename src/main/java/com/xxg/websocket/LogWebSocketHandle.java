@@ -7,9 +7,10 @@ import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/log")
+@ServerEndpoint("/log/{data}")
 public class LogWebSocketHandle {
 	
 	private Process process;
@@ -19,8 +20,9 @@ public class LogWebSocketHandle {
 	 * 新的WebSocket请求开启
 	 */
 	@OnOpen
-	public void onOpen(Session session) {
+	public void onOpen(Session session,@PathParam("data") String data) {
 		try {
+		    System.out.println("###########"+data);
 			// 执行tail -f命令
 			process = Runtime.getRuntime().exec("tail -f /var/log/syslog");
 			inputStream = process.getInputStream();

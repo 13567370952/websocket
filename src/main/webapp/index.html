@@ -14,7 +14,18 @@
 <script>
 	$(document).ready(function() {
 		// 指定websocket路径
-		var websocket = new WebSocket('ws://localhost:8080/log');
+		var websocket = new WebSocket('ws://localhost:8080/log/1111');
+	    /*
+	    open事件触发表明协议握手成功，WebSocket以及准备好接收和发送数据
+	    */
+/* 	    websocket.onopen = function(e){
+	        console.log("start..");
+	        //发送文本消息
+	        websocket.send("Hello World");
+	        //发送二进制对象
+	        var data = new Blob("blob object");
+	        websocket.send(data);
+	    } */
 		websocket.onmessage = function(event) {
 			// 接收服务端的实时日志并添加到HTML页面中
 			$("#log-container div").append(event.data);
